@@ -25,12 +25,16 @@ def after_request(response):
 def fetch_json():
   url = request.args.get('url')
   base = url
-  head = {
-    'Host': url,
-    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92',
+  headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Referer': 'direct'
     }
-  response = requests.get(base, allow_redirects=True)
-  error_response = {'message': 'Error connecting to destination \n ensure it is a valid json'}
+
+  response = requests.get(base, headers=headers, allow_redirects=True, verify=False)
+  error_response = {'message': 'Error fetching data, check request'}
   t = request.values.get('t', 0)
   time.sleep(float(t)) #just to show it works...
   if(response.status_code == 200 and 'application/json' in response.headers["Content-Type"]):
