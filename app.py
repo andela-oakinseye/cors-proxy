@@ -5,7 +5,9 @@ import json
 from flask import Flask, request, jsonify, g
 
 # Cache requests into a DB to avoid calling over and over
-requests_cache.install_cache('cached_data')
+# requests_cache.install_cache('cached_data')
+requests_cache.configure('cache_name', 'memory')
+
 
 app = Flask(__name__)
 
@@ -33,7 +35,7 @@ def fetch_json():
     'Referer': 'direct'
     }
 
-  response = requests.get(base, headers=headers, allow_redirects=True, verify=False)
+  response = requests.get(base, headers=headers, allow_redirects=True)
   error_response = {'message': 'Error fetching data, check request'}
   t = request.values.get('t', 0)
   time.sleep(float(t)) #just to show it works...
