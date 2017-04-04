@@ -1,12 +1,12 @@
 import time
 import requests
-import requests_cache
+#import requests_cache
 import json
 from flask import Flask, request, jsonify, g
 
 # Cache requests into a DB to avoid calling over and over
 # requests_cache.install_cache('cached_data')
-requests_cache.configure('cache_name', 'memory')
+#requests_cache.configure('cache_name', 'memory')
 
 
 app = Flask(__name__)
